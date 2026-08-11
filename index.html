@@ -30,6 +30,7 @@
     --danger: #B3261E;
     --danger-soft: #FBE9E7;
     --summary-bg: #2B2F32;
+    --summary-bg-active: #1F2225;
     --summary-text: #F5F6F5;
     --shadow: 0 8px 24px rgba(16, 33, 26, 0.10);
     --font-sans: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", "Segoe UI", sans-serif;
@@ -54,6 +55,7 @@
       --danger: #E28079;
       --danger-soft: #3A1E1C;
       --summary-bg: #23262A;
+      --summary-bg-active: #2F3337;
       --summary-text: #F0F1F0;
       --shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
     }
@@ -76,6 +78,7 @@
     --danger: #E28079;
     --danger-soft: #3A1E1C;
     --summary-bg: #23262A;
+    --summary-bg-active: #2F3337;
     --summary-text: #F0F1F0;
     --shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
   }
@@ -331,19 +334,19 @@
     width: 58px;
     height: 58px;
     border-radius: 999px;
-    background: var(--accent);
-    color: #fff;
+    background: var(--summary-bg);
+    color: var(--summary-text);
     border: none;
     font-size: 28px;
     line-height: 1;
-    box-shadow: 0 10px 24px rgba(20, 107, 92, 0.4);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 30;
   }
 
-  .fab:active { background: var(--accent-strong); transform: scale(0.96); }
+  .fab:active { background: var(--summary-bg-active); transform: scale(0.96); }
 
   /* ---------- Sheet / Modal ---------- */
 
