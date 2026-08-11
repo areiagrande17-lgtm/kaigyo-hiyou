@@ -11,7 +11,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="開業費用">
-<meta name="theme-color" content="#0E4F44">
+<meta name="theme-color" content="#2B2F32">
 <style>
   :root {
     --bg: #F3F5F3;
@@ -29,6 +29,8 @@
     --self-soft: #F3EADC;
     --danger: #B3261E;
     --danger-soft: #FBE9E7;
+    --summary-bg: #2B2F32;
+    --summary-text: #F5F6F5;
     --shadow: 0 8px 24px rgba(16, 33, 26, 0.10);
     --font-sans: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", "Segoe UI", sans-serif;
     --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
@@ -51,6 +53,8 @@
       --self-soft: #3A2E1C;
       --danger: #E28079;
       --danger-soft: #3A1E1C;
+      --summary-bg: #23262A;
+      --summary-text: #F0F1F0;
       --shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
     }
   }
@@ -71,6 +75,8 @@
     --self-soft: #3A2E1C;
     --danger: #E28079;
     --danger-soft: #3A1E1C;
+    --summary-bg: #23262A;
+    --summary-text: #F0F1F0;
     --shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
   }
 
@@ -156,8 +162,8 @@
 
   .summary {
     margin-top: 16px;
-    background: var(--accent-strong);
-    color: #F4FBF9;
+    background: var(--summary-bg);
+    color: var(--summary-text);
     border-radius: 20px;
     padding: 20px 20px 16px;
     box-shadow: var(--shadow);
