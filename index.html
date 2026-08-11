@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>開業準備費用</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<link rel="icon" href="icons/icon-512.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="開業費用">
+<meta name="theme-color" content="#0E4F44">
+<style>
+  :root {
+    --bg: #F3F5F3;
+    --surface: #FFFFFF;
+    --surface-alt: #E8ECE9;
+    --border: #D7DDD9;
+    --text: #16211D;
+    --text-muted: #5B6B62;
+    --accent: #146B5C;
+    --accent-strong: #0E4F44;
+    --accent-soft: #DCEFE9;
+    --loan: #2A5FA5;
+    --loan-soft: #E3ECF8;
+    --self: #8A5A22;
+    --self-soft: #F3EADC;
+    --danger: #B3261E;
+    --danger-soft: #FBE9E7;
+    --shadow: 0 8px 24px rgba(16, 33, 26, 0.10);
+    --font-sans: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", "Segoe UI", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #101512;
+      --surface: #182019;
+      --surface-alt: #1F2921;
+      --border: #2C382F;
+      --text: #E8EEEA;
+      --text-muted: #97A69C;
+      --accent: #4FBFA8;
+      --accent-strong: #6FD4BE;
+      --accent-soft: #1B3A34;
+      --loan: #8FB4E6;
+      --loan-soft: #1E2E44;
+      --self: #D0A468;
+      --self-soft: #3A2E1C;
+      --danger: #E28079;
+      --danger-soft: #3A1E1C;
+      --shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #101512;
+    --surface: #182019;
+    --surface-alt: #1F2921;
+    --border: #2C382F;
+    --text: #E8EEEA;
+    --text-muted: #97A69C;
+    --accent: #4FBFA8;
+    --accent-strong: #6FD4BE;
+    --accent-soft: #1B3A34;
+    --loan: #8FB4E6;
+    --loan-soft: #1E2E44;
+    --self: #D0A468;
+    --self-soft: #3A2E1C;
+    --danger: #E28079;
+    --danger-soft: #3A1E1C;
+    --shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    padding-bottom: 96px;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  button, input, select, textarea {
+    font-family: inherit;
+    color: inherit;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  h1, h2, h3 {
+    text-wrap: balance;
+    margin: 0;
+  }
+
+  /* ---------- Header ---------- */
+
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: var(--bg);
+    padding: calc(20px + env(safe-area-inset-top)) 16px 0;
+  }
+
+  .topbar-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    font-weight: 600;
+    margin: 0 0 2px;
+  }
+
+  .title {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .menu-btn {
+    flex: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: var(--text-muted);
+  }
+
+  .menu-btn:active { background: var(--surface-alt); }
+
+  /* ---------- Summary ---------- */
+
+  .summary {
+    margin-top: 16px;
+    background: var(--accent-strong);
+    color: #F4FBF9;
+    border-radius: 20px;
+    padding: 20px 20px 16px;
+    box-shadow: var(--shadow);
+  }
+
+  .summary-label {
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    opacity: 0.78;
+    font-weight: 600;
+  }
+
+  .summary-total {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    font-size: 34px;
+    font-weight: 700;
+    margin-top: 4px;
+    letter-spacing: -0.01em;
+  }
+
+  .summary-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  .stat-pill {
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    padding: 8px 10px;
+  }
+
+  .stat-pill-label {
+    font-size: 11px;
+    opacity: 0.8;
+  }
+
+  .stat-pill-value {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    font-size: 15px;
+    font-weight: 700;
+    margin-top: 2px;
+  }
+
+  /* ---------- Table ---------- */
+
+  .table-section {
+    margin: 20px 16px 0;
+  }
+
+  .table-section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+
+  .table-section-head h2 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-muted);
+  }
+
+  .table-count {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+  }
+
+  .table-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: auto;
+    box-shadow: var(--shadow);
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 620px;
+  }
+
+  thead th {
+    position: sticky;
+    top: 0;
+    background: var(--surface-alt);
+    text-align: left;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+
+  th.num, td.num { text-align: right; }
+
+  tbody tr {
+    border-bottom: 1px solid var(--border);
+  }
+
+  tbody tr:last-child { border-bottom: none; }
+
+  tbody tr:active { background: var(--surface-alt); }
+
+  td {
+    padding: 12px;
+    font-size: 14px;
+    vertical-align: top;
+  }
+
+  td.date, td.num {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  td.content { font-weight: 600; }
+
+  td.memo {
+    color: var(--text-muted);
+    font-size: 13px;
+    max-width: 180px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 9px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .chip-loan { background: var(--loan-soft); color: var(--loan); }
+  .chip-self { background: var(--self-soft); color: var(--self); }
+
+  .empty-state {
+    padding: 48px 20px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+
+  .empty-state-icon {
+    font-size: 28px;
+    margin-bottom: 8px;
+  }
+
+  /* ---------- FAB ---------- */
+
+  .fab {
+    position: fixed;
+    right: 20px;
+    bottom: 24px;
+    width: 58px;
+    height: 58px;
+    border-radius: 999px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    font-size: 28px;
+    line-height: 1;
+    box-shadow: 0 10px 24px rgba(20, 107, 92, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 30;
+  }
+
+  .fab:active { background: var(--accent-strong); transform: scale(0.96); }
+
+  /* ---------- Sheet / Modal ---------- */
+
+  .overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 16, 13, 0.45);
+    z-index: 40;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.18s ease;
+  }
+
+  .overlay.open { opacity: 1; pointer-events: auto; }
+
+  .sheet {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 50;
+    background: var(--surface);
+    border-radius: 20px 20px 0 0;
+    box-shadow: var(--shadow);
+    max-height: 88vh;
+    overflow-y: auto;
+    transform: translateY(100%);
+    transition: transform 0.22s ease;
+    padding: 10px 20px calc(24px + env(safe-area-inset-bottom));
+  }
+
+  .sheet.open { transform: translateY(0); }
+
+  .sheet-handle {
+    width: 36px;
+    height: 4px;
+    border-radius: 999px;
+    background: var(--border);
+    margin: 6px auto 14px;
+  }
+
+  .sheet-title {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .field {
+    margin-top: 14px;
+  }
+
+  .field label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+    letter-spacing: 0.02em;
+  }
+
+  .field input[type="text"],
+  .field input[type="number"],
+  .field input[type="date"],
+  .field textarea {
+    width: 100%;
+    padding: 11px 12px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--bg);
+    font-size: 16px;
+    color: var(--text);
+  }
+
+  .field textarea {
+    resize: vertical;
+    min-height: 56px;
+  }
+
+  .field input:focus, .field textarea:focus, .segmented button:focus-visible, .menu-item:focus-visible, .fab:focus-visible, .menu-btn:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+  }
+
+  .yen-input-wrap {
+    position: relative;
+  }
+
+  .yen-input-wrap span {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+  }
+
+  .yen-input-wrap input {
+    padding-left: 28px !important;
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .segmented {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .segmented button {
+    padding: 11px 8px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .segmented button.active[data-kind="self"] {
+    background: var(--self-soft);
+    border-color: var(--self);
+    color: var(--self);
+  }
+
+  .segmented button.active[data-kind="loan"] {
+    background: var(--loan-soft);
+    border-color: var(--loan);
+    color: var(--loan);
+  }
+
+  .sheet-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 22px;
+  }
+
+  .btn {
+    flex: 1;
+    padding: 13px;
+    border-radius: 12px;
+    border: none;
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:active { background: var(--accent-strong); }
+
+  .btn-ghost {
+    background: var(--surface-alt);
+    color: var(--text);
+  }
+
+  .btn-danger {
+    background: var(--danger-soft);
+    color: var(--danger);
+    flex: none;
+    width: 48px;
+  }
+
+  /* ---------- Backup menu sheet ---------- */
+
+  .menu-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 13px 4px;
+    background: none;
+    border: none;
+    border-bottom: 1px solid var(--border);
+    font-size: 15px;
+    text-align: left;
+  }
+
+  .menu-item:last-child { border-bottom: none; }
+
+  .menu-item-icon {
+    width: 30px;
+    text-align: center;
+    font-size: 16px;
+  }
+
+  .menu-item-sub {
+    display: block;
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 400;
+    margin-top: 1px;
+  }
+
+  .menu-item-label { font-weight: 600; }
+
+  /* ---------- Toast ---------- */
+
+  .toast {
+    position: fixed;
+    left: 50%;
+    bottom: 96px;
+    transform: translate(-50%, 12px);
+    background: var(--text);
+    color: var(--bg);
+    padding: 10px 18px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    box-shadow: var(--shadow);
+    z-index: 60;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .toast.show {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sheet, .overlay, .toast, .fab { transition: none; }
+  }
+
+  input[type="file"] { display: none; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-row">
+    <div>
+      <p class="eyebrow">開業準備 費用管理</p>
+      <h1 class="title" id="clinicTitle">開業費用トラッカー</h1>
+    </div>
+    <button class="menu-btn" id="menuBtn" aria-label="バックアップメニュー">⋯</button>
+  </div>
+
+  <div class="summary">
+    <div class="summary-label">総費用</div>
+    <div class="summary-total" id="totalAmount">¥0</div>
+    <div class="summary-stats">
+      <div class="stat-pill">
+        <div class="stat-pill-label">融資</div>
+        <div class="stat-pill-value" id="loanTotal">¥0</div>
+      </div>
+      <div class="stat-pill">
+        <div class="stat-pill-label">自己資金</div>
+        <div class="stat-pill-value" id="selfTotal">¥0</div>
+      </div>
+      <div class="stat-pill">
+        <div class="stat-pill-label">件数</div>
+        <div class="stat-pill-value" id="entryCount">0件</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="table-section">
+  <div class="table-section-head">
+    <h2>費用一覧（支払日順）</h2>
+    <span class="table-count" id="tableCount"></span>
+  </div>
+  <div class="table-wrap">
+    <table id="expenseTable" hidden>
+      <thead>
+        <tr>
+          <th>支払日</th>
+          <th>内容</th>
+          <th>相手</th>
+          <th class="num">費用</th>
+          <th>種別</th>
+          <th>備考</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+    <div class="empty-state" id="emptyState">
+      <div class="empty-state-icon">🦷</div>
+      右下の + から、最初の費用を記録しましょう。
+    </div>
+  </div>
+</div>
+
+<button class="fab" id="addBtn" aria-label="費用を追加">+</button>
+
+<div class="overlay" id="overlay"></div>
+
+<div class="sheet" id="entrySheet" role="dialog" aria-labelledby="sheetTitle">
+  <div class="sheet-handle"></div>
+  <div class="sheet-title" id="sheetTitle">費用を追加</div>
+  <form id="entryForm">
+    <div class="field">
+      <label for="fContent">内容</label>
+      <input type="text" id="fContent" placeholder="例）内装工事、レセプト、印鑑作成" required>
+    </div>
+    <div class="field">
+      <label for="fPayee">相手</label>
+      <input type="text" id="fPayee" placeholder="例）〇〇工務店、〇〇銀行">
+    </div>
+    <div class="field">
+      <label for="fCost">費用</label>
+      <div class="yen-input-wrap">
+        <span>¥</span>
+        <input type="number" id="fCost" inputmode="numeric" min="0" step="1" placeholder="0" required>
+      </div>
+    </div>
+    <div class="field">
+      <label for="fDate">支払日</label>
+      <input type="date" id="fDate" required>
+    </div>
+    <div class="field">
+      <label>融資か否か</label>
+      <div class="segmented" id="kindSegmented">
+        <button type="button" data-kind="self" class="active">自己資金</button>
+        <button type="button" data-kind="loan">融資</button>
+      </div>
+    </div>
+    <div class="field">
+      <label for="fMemo">備考</label>
+      <textarea id="fMemo" placeholder="任意"></textarea>
+    </div>
+
+    <div class="sheet-actions">
+      <button type="button" class="btn btn-danger" id="deleteBtn" hidden aria-label="削除">🗑</button>
+      <button type="button" class="btn btn-ghost" id="cancelBtn">キャンセル</button>
+      <button type="submit" class="btn btn-primary" id="saveBtn">保存</button>
+    </div>
+  </form>
+</div>
+
+<div class="sheet" id="menuSheet" role="dialog" aria-labelledby="menuSheetTitle">
+  <div class="sheet-handle"></div>
+  <div class="sheet-title" id="menuSheetTitle">バックアップ</div>
+  <div style="margin-top:2px;">
+    <button class="menu-item" id="exportJsonBtn">
+      <span class="menu-item-icon">💾</span>
+      <span>
+        <span class="menu-item-label">バックアップを保存（JSON）</span>
+        <span class="menu-item-sub">端末に保存。この一覧の読み込みに使えます</span>
+      </span>
+    </button>
+    <button class="menu-item" id="exportCsvBtn">
+      <span class="menu-item-icon">📊</span>
+      <span>
+        <span class="menu-item-label">表計算用に保存（CSV）</span>
+        <span class="menu-item-sub">Excel・Numbersで開けます</span>
+      </span>
+    </button>
+    <button class="menu-item" id="importBtn">
+      <span class="menu-item-icon">📂</span>
+      <span>
+        <span class="menu-item-label">バックアップを読み込む</span>
+        <span class="menu-item-sub">保存したJSONファイルから復元します</span>
+      </span>
+    </button>
+  </div>
+  <input type="file" id="importFile" accept="application/json">
+  <div class="sheet-actions">
+    <button type="button" class="btn btn-ghost" id="menuCancelBtn" style="flex:1">閉じる</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function () {
+  "use strict";
+
+  var STORAGE_KEY = "dental-clinic-expenses-v1";
+  var entries = [];
+  var editingId = null;
+  var selectedKind = "self";
+
+  var els = {
+    total: document.getElementById("totalAmount"),
+    loanTotal: document.getElementById("loanTotal"),
+    selfTotal: document.getElementById("selfTotal"),
+    count: document.getElementById("entryCount"),
+    tableCount: document.getElementById("tableCount"),
+    table: document.getElementById("expenseTable"),
+    tbody: document.getElementById("tableBody"),
+    empty: document.getElementById("emptyState"),
+    overlay: document.getElementById("overlay"),
+    entrySheet: document.getElementById("entrySheet"),
+    menuSheet: document.getElementById("menuSheet"),
+    sheetTitle: document.getElementById("sheetTitle"),
+    form: document.getElementById("entryForm"),
+    fContent: document.getElementById("fContent"),
+    fPayee: document.getElementById("fPayee"),
+    fCost: document.getElementById("fCost"),
+    fDate: document.getElementById("fDate"),
+    fMemo: document.getElementById("fMemo"),
+    kindSegmented: document.getElementById("kindSegmented"),
+    deleteBtn: document.getElementById("deleteBtn"),
+    cancelBtn: document.getElementById("cancelBtn"),
+    menuCancelBtn: document.getElementById("menuCancelBtn"),
+    addBtn: document.getElementById("addBtn"),
+    menuBtn: document.getElementById("menuBtn"),
+    exportJsonBtn: document.getElementById("exportJsonBtn"),
+    exportCsvBtn: document.getElementById("exportCsvBtn"),
+    importBtn: document.getElementById("importBtn"),
+    importFile: document.getElementById("importFile"),
+    toast: document.getElementById("toast")
+  };
+
+  function uid() {
+    return Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+  }
+
+  function loadData() {
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      entries = raw ? JSON.parse(raw) : [];
+      if (!Array.isArray(entries)) entries = [];
+    } catch (e) {
+      entries = [];
+    }
+  }
+
+  function saveData() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+  }
+
+  function formatYen(n) {
+    var v = Math.round(Number(n) || 0);
+    return "¥" + v.toLocaleString("ja-JP");
+  }
+
+  function formatDate(iso) {
+    if (!iso) return "";
+    var parts = iso.split("-");
+    if (parts.length !== 3) return iso;
+    return parts[0] + "/" + parts[1] + "/" + parts[2];
+  }
+
+  function todayIso() {
+    var d = new Date();
+    var m = String(d.getMonth() + 1).padStart(2, "0");
+    var day = String(d.getDate()).padStart(2, "0");
+    return d.getFullYear() + "-" + m + "-" + day;
+  }
+
+  function showToast(msg) {
+    els.toast.textContent = msg;
+    els.toast.classList.add("show");
+    clearTimeout(showToast._t);
+    showToast._t = setTimeout(function () {
+      els.toast.classList.remove("show");
+    }, 2200);
+  }
+
+  function escapeHtml(s) {
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+
+  function render() {
+    var sorted = entries.slice().sort(function (a, b) {
+      return (b.date || "").localeCompare(a.date || "") || b.createdAt - a.createdAt;
+    });
+
+    var total = 0, loanSum = 0, selfSum = 0;
+    entries.forEach(function (e) {
+      var c = Number(e.cost) || 0;
+      total += c;
+      if (e.loan) loanSum += c; else selfSum += c;
+    });
+
+    els.total.textContent = formatYen(total);
+    els.loanTotal.textContent = formatYen(loanSum);
+    els.selfTotal.textContent = formatYen(selfSum);
+    els.count.textContent = entries.length + "件";
+    els.tableCount.textContent = entries.length ? entries.length + "件" : "";
+
+    if (!sorted.length) {
+      els.table.hidden = true;
+      els.empty.hidden = false;
+      els.tbody.innerHTML = "";
+      return;
+    }
+
+    els.table.hidden = false;
+    els.empty.hidden = true;
+
+    els.tbody.innerHTML = sorted.map(function (e) {
+      var kindChip = e.loan
+        ? '<span class="chip chip-loan">融資</span>'
+        : '<span class="chip chip-self">自己資金</span>';
+      return (
+        '<tr data-id="' + escapeHtml(e.id) + '">' +
+          '<td class="date">' + escapeHtml(formatDate(e.date)) + "</td>" +
+          '<td class="content">' + escapeHtml(e.content) + "</td>" +
+          '<td>' + escapeHtml(e.payee) + "</td>" +
+          '<td class="num">' + escapeHtml(formatYen(e.cost)) + "</td>" +
+          '<td>' + kindChip + "</td>" +
+          '<td class="memo" title="' + escapeHtml(e.memo || "") + '">' + escapeHtml(e.memo || "") + "</td>" +
+        "</tr>"
+      );
+    }).join("");
+  }
+
+  /* ---------- Sheet control ---------- */
+
+  function openOverlay() {
+    els.overlay.classList.add("open");
+  }
+  function closeOverlay() {
+    els.overlay.classList.remove("open");
+  }
+
+  function openEntrySheet() {
+    openOverlay();
+    els.entrySheet.classList.add("open");
+  }
+  function closeEntrySheet() {
+    els.entrySheet.classList.remove("open");
+    if (!els.menuSheet.classList.contains("open")) closeOverlay();
+  }
+
+  function openMenuSheet() {
+    openOverlay();
+    els.menuSheet.classList.add("open");
+  }
+  function closeMenuSheet() {
+    els.menuSheet.classList.remove("open");
+    if (!els.entrySheet.classList.contains("open")) closeOverlay();
+  }
+
+  function setKind(kind) {
+    selectedKind = kind;
+    var buttons = els.kindSegmented.querySelectorAll("button");
+    buttons.forEach(function (b) {
+      b.classList.toggle("active", b.dataset.kind === kind);
+    });
+  }
+
+  function resetForm() {
+    els.form.reset();
+    els.fDate.value = todayIso();
+    setKind("self");
+    editingId = null;
+    els.deleteBtn.hidden = true;
+  }
+
+  function openAddSheet() {
+    resetForm();
+    els.sheetTitle.textContent = "費用を追加";
+    openEntrySheet();
+    setTimeout(function () { els.fContent.focus(); }, 260);
+  }
+
+  function openEditSheet(id) {
+    var entry = entries.find(function (e) { return e.id === id; });
+    if (!entry) return;
+    editingId = id;
+    els.sheetTitle.textContent = "費用を編集";
+    els.fContent.value = entry.content || "";
+    els.fPayee.value = entry.payee || "";
+    els.fCost.value = entry.cost != null ? entry.cost : "";
+    els.fDate.value = entry.date || todayIso();
+    els.fMemo.value = entry.memo || "";
+    setKind(entry.loan ? "loan" : "self");
+    els.deleteBtn.hidden = false;
+    openEntrySheet();
+  }
+
+  /* ---------- Events ---------- */
+
+  els.addBtn.addEventListener("click", openAddSheet);
+  els.cancelBtn.addEventListener("click", closeEntrySheet);
+  els.menuBtn.addEventListener("click", openMenuSheet);
+  els.menuCancelBtn.addEventListener("click", closeMenuSheet);
+  els.overlay.addEventListener("click", function () {
+    closeEntrySheet();
+    closeMenuSheet();
+  });
+
+  els.kindSegmented.addEventListener("click", function (ev) {
+    var btn = ev.target.closest("button[data-kind]");
+    if (btn) setKind(btn.dataset.kind);
+  });
+
+  els.tbody.addEventListener("click", function (ev) {
+    var row = ev.target.closest("tr[data-id]");
+    if (row) openEditSheet(row.dataset.id);
+  });
+
+  els.form.addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    var content = els.fContent.value.trim();
+    var cost = Number(els.fCost.value);
+    var date = els.fDate.value;
+    if (!content || !date || isNaN(cost)) return;
+
+    if (editingId) {
+      var entry = entries.find(function (e) { return e.id === editingId; });
+      entry.content = content;
+      entry.payee = els.fPayee.value.trim();
+      entry.cost = cost;
+      entry.date = date;
+      entry.loan = selectedKind === "loan";
+      entry.memo = els.fMemo.value.trim();
+      showToast("更新しました");
+    } else {
+      entries.push({
+        id: uid(),
+        content: content,
+        payee: els.fPayee.value.trim(),
+        cost: cost,
+        date: date,
+        loan: selectedKind === "loan",
+        memo: els.fMemo.value.trim(),
+        createdAt: Date.now()
+      });
+      showToast("追加しました");
+    }
+
+    saveData();
+    render();
+    closeEntrySheet();
+  });
+
+  els.deleteBtn.addEventListener("click", function () {
+    if (!editingId) return;
+    entries = entries.filter(function (e) { return e.id !== editingId; });
+    saveData();
+    render();
+    closeEntrySheet();
+    showToast("削除しました");
+  });
+
+  /* ---------- Backup: export / import ---------- */
+
+  function buildCsv() {
+    var header = ["支払日", "内容", "相手", "費用", "種別", "備考"];
+    var rows = entries.slice().sort(function (a, b) {
+      return (a.date || "").localeCompare(b.date || "");
+    }).map(function (e) {
+      return [
+        e.date || "",
+        e.content || "",
+        e.payee || "",
+        String(Math.round(Number(e.cost) || 0)),
+        e.loan ? "融資" : "自己資金",
+        e.memo || ""
+      ];
+    });
+    var totalRow = ["", "", "合計", String(entries.reduce(function (s, e) { return s + (Number(e.cost) || 0); }, 0)), "", ""];
+    var all = [header].concat(rows, [totalRow]);
+    var csv = all.map(function (r) {
+      return r.map(function (cell) {
+        var s = String(cell);
+        if (/[",\n]/.test(s)) s = '"' + s.replace(/"/g, '""') + '"';
+        return s;
+      }).join(",");
+    }).join("\r\n");
+    return "﻿" + csv;
+  }
+
+  function dateStamp() {
+    var d = new Date();
+    return d.getFullYear() + String(d.getMonth() + 1).padStart(2, "0") + String(d.getDate()).padStart(2, "0");
+  }
+
+  function downloadFile(filename, content, mime) {
+    var blob = new Blob([content], { type: mime });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+  }
+
+  els.exportJsonBtn.addEventListener("click", function () {
+    var payload = JSON.stringify({ version: 1, exportedAt: new Date().toISOString(), entries: entries }, null, 2);
+    downloadFile("開業費用_バックアップ_" + dateStamp() + ".json", payload, "application/json");
+    showToast("バックアップを保存しました");
+    closeMenuSheet();
+  });
+
+  els.exportCsvBtn.addEventListener("click", function () {
+    var csv = buildCsv();
+    downloadFile("開業費用_" + dateStamp() + ".csv", csv, "text/csv;charset=utf-8");
+    showToast("CSVを保存しました");
+    closeMenuSheet();
+  });
+
+  els.importBtn.addEventListener("click", function () {
+    els.importFile.click();
+  });
+
+  els.importFile.addEventListener("change", function () {
+    var file = els.importFile.files && els.importFile.files[0];
+    if (!file) return;
+    var reader = new FileReader();
+    reader.onload = function () {
+      try {
+        var parsed = JSON.parse(reader.result);
+        var incoming = Array.isArray(parsed) ? parsed : parsed.entries;
+        if (!Array.isArray(incoming)) throw new Error("invalid");
+        var ok = confirm("バックアップを読み込みます。現在のデータ（" + entries.length + "件）は置き換えられます。よろしいですか？");
+        if (!ok) return;
+        entries = incoming.map(function (e) {
+          return {
+            id: e.id || uid(),
+            content: e.content || "",
+            payee: e.payee || "",
+            cost: Number(e.cost) || 0,
+            date: e.date || todayIso(),
+            loan: !!e.loan,
+            memo: e.memo || "",
+            createdAt: e.createdAt || Date.now()
+          };
+        });
+        saveData();
+        render();
+        closeMenuSheet();
+        showToast("読み込みました（" + entries.length + "件）");
+      } catch (e) {
+        showToast("読み込めませんでした。ファイルを確認してください");
+      }
+    };
+    reader.readAsText(file);
+    els.importFile.value = "";
+  });
+
+  loadData();
+  render();
+})();
+</script>
+</body>
+</html>
